@@ -193,6 +193,11 @@ select {
   margin-bottom: 0.25rem;
 }
 
+.table-card h4 {
+  font-size: 1.1rem;
+  margin: 0 0 0.8rem;
+}
+
 .details-address {
   color: var(--muted);
   margin-bottom: 1rem;
@@ -211,6 +216,12 @@ select {
   padding: 0.7rem 0.8rem;
 }
 
+.detail-comment {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
 .detail-label {
   display: block;
   font-size: 0.82rem;
@@ -218,6 +229,26 @@ select {
   letter-spacing: 0.04em;
   color: var(--muted);
   margin-bottom: 0.2rem;
+}
+
+.review-section {
+  margin-bottom: 1rem;
+}
+
+.tables-section {
+  margin-bottom: 1rem;
+}
+
+.table-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.table-card {
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .notes {

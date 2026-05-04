@@ -6,14 +6,57 @@ window.VENUES = [
     neighborhood: "Mission",
     lat: 37.7599,
     lng: -122.4148,
-    rating: 4.6,
-    table_size: "7 ft",
-    make: "Valley",
-    cloth_color: "Green",
-    cost: "$2 per game",
-    condition: "Good cloth, rails play true",
-    obstructions: "One long rail a little tight near stools",
-    cue_ball_type: "Oversized magnetic",
+    tables: [
+      {
+        name: "Main table",
+        table_size: "7 ft",
+        make: "Valley",
+        cloth_color: "Green",
+        review: {
+          cost: {
+            score: 2,
+            label: "$2 per game",
+            comment: "Priced on the high side for a bar box.",
+          },
+          table_condition: {
+            score: 4,
+            label: "Good",
+            comment: "Overall play is solid.",
+          },
+          cloth_condition: {
+            score: 4,
+            label: "Good",
+            comment: "Clean cloth with only light wear.",
+          },
+          rails: {
+            score: 4,
+            label: "Good",
+          },
+          lighting: {
+            score: 3,
+            label: "OK",
+          },
+          ball_condition: {
+            score: 3,
+            label: "OK",
+          },
+          cue_ball: {
+            score: 2,
+            label: "Heavy",
+            comment: "Oversized magnetic cue ball.",
+          },
+          obstructions: {
+            score: 2,
+            label: "Moderately obstructed",
+            comment: "One long rail gets tight near stools.",
+          },
+          rolloff: {
+            score: 3,
+            label: "Minor",
+          },
+        },
+      },
+    ],
     notes: "Sample entry. Replace this text with your own review notes.",
   },
   {
@@ -23,14 +66,99 @@ window.VENUES = [
     neighborhood: "Richmond",
     lat: 37.7808,
     lng: -122.4836,
-    rating: 4.1,
-    table_size: "8 ft",
-    make: "Olhausen",
-    cloth_color: "Blue",
-    cost: "$1.50 per game",
-    condition: "Playable, a little slow",
-    obstructions: "Clear on most sides",
-    cue_ball_type: "Standard",
+    tables: [
+      {
+        name: "Front table",
+        table_size: "8 ft",
+        make: "Olhausen",
+        cloth_color: "Blue",
+        review: {
+          cost: {
+            score: 4,
+            label: "$1 per game",
+            comment: "Affordable for repeat games.",
+          },
+          table_condition: {
+            score: 3,
+            label: "OK",
+            comment: "Playable, but the cloth is a little slow.",
+          },
+          cloth_condition: {
+            score: 3,
+            label: "OK",
+            comment: "A little slow, but still serviceable.",
+          },
+          rails: {
+            score: 5,
+            label: "Excellent",
+          },
+          lighting: {
+            score: 4,
+            label: "Good",
+          },
+          ball_condition: {
+            score: 4,
+            label: "Good",
+          },
+          cue_ball: {
+            score: 5,
+            label: "Standard",
+          },
+          obstructions: {
+            score: 5,
+            label: "Not obstructed",
+          },
+          rolloff: {
+            score: 5,
+            label: "None",
+          },
+        },
+      },
+      {
+        name: "Back table",
+        table_size: "8 ft",
+        make: "Olhausen",
+        cloth_color: "Blue",
+        review: {
+          cost: {
+            score: 4,
+            label: "$1 per game",
+          },
+          table_condition: {
+            score: 4,
+            label: "Good",
+          },
+          cloth_condition: {
+            score: 4,
+            label: "Good",
+          },
+          rails: {
+            score: 4,
+            label: "Good",
+          },
+          lighting: {
+            score: 4,
+            label: "Good",
+          },
+          ball_condition: {
+            score: 4,
+            label: "Good",
+          },
+          cue_ball: {
+            score: 5,
+            label: "Standard",
+          },
+          obstructions: {
+            score: 4,
+            label: "Occasional obstruction",
+          },
+          rolloff: {
+            score: 5,
+            label: "None",
+          },
+        },
+      },
+    ],
     notes:
       "Sample entry. Add your observations about lighting, crowds, and table roll.",
   },
@@ -41,14 +169,56 @@ window.VENUES = [
     neighborhood: "SoMa",
     lat: 37.7786,
     lng: -122.4059,
-    rating: 3.8,
-    table_size: "7 ft",
-    make: "Unknown",
-    cloth_color: "Green",
-    cost: "$2 per game",
-    condition: "Usable but worn cloth",
-    obstructions: "Crowded on weekend nights",
-    cue_ball_type: "Oversized",
+    tables: [
+      {
+        name: "Only table",
+        table_size: "7 ft",
+        make: "Unknown",
+        cloth_color: "Green",
+        review: {
+          cost: {
+            score: 2,
+            label: "$2 per game",
+          },
+          table_condition: {
+            score: 2,
+            label: "Dirty",
+            comment: "Usable, but the cloth is worn and inconsistent.",
+          },
+          cloth_condition: {
+            score: 2,
+            label: "Dirty",
+          },
+          rails: {
+            score: 2,
+            label: "Poor",
+          },
+          lighting: {
+            score: 2,
+            label: "Dirty",
+            comment: "Dim enough to make long shots harder to read.",
+          },
+          ball_condition: {
+            score: 2,
+            label: "Dirty",
+          },
+          cue_ball: {
+            score: 2,
+            label: "Heavy",
+          },
+          obstructions: {
+            score: 1,
+            label: "Heavily obstructed",
+            comment: "Weekend traffic crowds multiple shot lines.",
+          },
+          rolloff: {
+            score: 1,
+            label: "Major",
+            comment: "Noticeable drift on slower shots.",
+          },
+        },
+      },
+    ],
     notes: "Sample entry. Replace with a real review and any table quirks.",
   },
 ];

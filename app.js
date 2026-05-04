@@ -14,6 +14,17 @@ const venueCount = document.getElementById("venue-count");
 const sortSelect = document.getElementById("sort-select");
 const details = document.getElementById("details");
 const previewWarning = document.getElementById("preview-warning");
+const REVIEW_CATEGORIES = [
+  { key: "cost", label: "Cost", maxScore: 5 },
+  { key: "table_condition", label: "Table Condition", maxScore: 5 },
+  { key: "cloth_condition", label: "Cloth Condition", maxScore: 5 },
+  { key: "rails", label: "Rail Condition", maxScore: 5 },
+  { key: "lighting", label: "Lighting", maxScore: 5 },
+  { key: "ball_condition", label: "Ball Condition", maxScore: 5 },
+  { key: "cue_ball", label: "Cue Ball", maxScore: 5 },
+  { key: "obstructions", label: "Obstructions", maxScore: 5 },
+  { key: "rolloff", label: "Rolloff", maxScore: 5 },
+];
 
 let venues = [];
 let selectedVenueId = null;
@@ -44,61 +55,162 @@ function sortVenues(items, mode) {
   return sorted;
 }
 
+function computeRating(review) {
+  const scores = REVIEW_CATEGORIES.map(({ key }) => review?.[key]?.score).filter(
+    (score) => typeof score === "number"
+  );
+
+  if (scores.length === 0) {
+    return 0;
+  }
+
+  return scores.reduce((sum, score) => sum + score, 0) / scores.length;
+}
+
+function formatTableCount(count) {
+  return `${count} table${count === 1 ? "" : "s"}`;
+}
+
+function computeVenueRating(tables) {
+  if (!Array.isArray(tables) || tables.length === 0) {
+    return 0;
+  }
+
+  const total = tables.reduce((sum, table) => sum + table.rating, 0);
+  return total / tables.length;
+}
+
+function normalizeVenues(items) {
+  return items.map((venue) => {
+    const tables = (venue.tables || []).map((table, index) => ({
+      ...table,
+      id: table.id || `${venue.id}-table-${index + 1}`,
+      name: table.name || `Table ${index + 1}`,
+      rating: computeRating(table.review),
+    }));
+
+    return {
+      ...venue,
+      tables,
+      rating: computeVenueRating(tables),
+    };
+  });
+}
+
+function reviewBlockHtml(item, label) {
+  const comment = item.comment
+    ? `<p class="detail-comment">${item.comment}</p>`
+    : "";
+
+  return `
+    <div class="detail-block">
+      <span class="detail-label">${label}</span>
+      <strong>${item.label} (${item.score}/5)</strong>
+      ${comment}
+    </div>
+  `;
+}
+
+function markerColor(rating) {
+  if (rating >= 4.5) {
+    return "#1f7a4d";
+  }
+
+  if (rating >= 3.75) {
+    return "#5c8f2f";
+  }
+
+  if (rating >= 3) {
+    return "#c3921a";
+  }
+
+  if (rating >= 2) {
+    return "#b85f24";
+  }
+
+  return "#9f2f2f";
+}
+
 function popupHtml(venue) {
+  const topTable = [...venue.tables].sort((a, b) => b.rating - a.rating)[0];
+  const topTableLine = topTable
+    ? `<p><strong>Top table:</strong> ${topTable.name} (${topTable.rating.toFixed(1)}/5)</p>`
+    : "";
+
   return `
     <h3>${venue.name}</h3>
     <p>${venue.address}</p>
     <p><strong>Rating:</strong> ${venue.rating.toFixed(1)}/5</p>
-    <p><strong>Table:</strong> ${venue.table_size}, ${venue.make}</p>
-    <p><strong>Cloth:</strong> ${venue.cloth_color}</p>
+    <p><strong>Tables:</strong> ${formatTableCount(venue.tables.length)}</p>
+    ${topTableLine}
+  `;
+}
+
+function tableDetailsHtml(table) {
+  const reviewBlocks = REVIEW_CATEGORIES.map(({ key, label }) =>
+    reviewBlockHtml(table.review[key], label)
+  ).join("");
+
+  return `
+    <article class="table-card">
+      <h4>${table.name}</h4>
+      <div class="details-grid">
+        <div class="detail-block">
+          <span class="detail-label">Table Rating</span>
+          <strong>${table.rating.toFixed(1)} / 5</strong>
+        </div>
+        <div class="detail-block">
+          <span class="detail-label">Table Size</span>
+          <strong>${table.table_size}</strong>
+        </div>
+        <div class="detail-block">
+          <span class="detail-label">Make</span>
+          <strong>${table.make}</strong>
+        </div>
+        <div class="detail-block">
+          <span class="detail-label">Cloth Color</span>
+          <strong>${table.cloth_color}</strong>
+        </div>
+      </div>
+      <div class="review-section">
+        <span class="detail-label">Score Breakdown</span>
+        <div class="details-grid">
+          ${reviewBlocks}
+        </div>
+      </div>
+    </article>
   `;
 }
 
 function detailsHtml(venue) {
+  const tableCards = venue.tables.map((table) => tableDetailsHtml(table)).join("");
+
   return `
     <article class="details-card">
       <h3>${venue.name}</h3>
       <p class="details-address">${venue.address}</p>
       <div class="details-grid">
         <div class="detail-block">
-          <span class="detail-label">Overall Rating</span>
+          <span class="detail-label">Venue Rating</span>
           <strong>${venue.rating.toFixed(1)} / 5</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Table Size</span>
-          <strong>${venue.table_size}</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Make</span>
-          <strong>${venue.make}</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Cloth Color</span>
-          <strong>${venue.cloth_color}</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Cost</span>
-          <strong>${venue.cost}</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Condition</span>
-          <strong>${venue.condition}</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Cue Ball Type</span>
-          <strong>${venue.cue_ball_type}</strong>
-        </div>
-        <div class="detail-block">
-          <span class="detail-label">Obstructions</span>
-          <strong>${venue.obstructions}</strong>
         </div>
         <div class="detail-block">
           <span class="detail-label">Neighborhood</span>
           <strong>${venue.neighborhood}</strong>
         </div>
+        <div class="detail-block">
+          <span class="detail-label">Table Count</span>
+          <strong>${formatTableCount(venue.tables.length)}</strong>
+        </div>
+      </div>
+      <div class="tables-section">
+        <span class="detail-label">Table Reviews</span>
+        <div class="table-list">
+          ${tableCards}
+        </div>
       </div>
       <div class="notes">
-        <span class="detail-label">Notes</span>
+        <span class="detail-label">Venue Notes</span>
         <p>${venue.notes}</p>
       </div>
     </article>
@@ -162,7 +274,7 @@ function renderList() {
               <strong>${venue.name}</strong>
               <span class="rating-pill">${venue.rating.toFixed(1)}</span>
             </div>
-            <p>${venue.neighborhood} · ${venue.table_size} · ${venue.cost}</p>
+            <p>${venue.neighborhood} · ${formatTableCount(venue.tables.length)}</p>
           </button>
         </li>
       `
@@ -180,7 +292,14 @@ function renderList() {
 
 function addMarkers() {
   venues.forEach((venue) => {
-    const marker = L.marker([venue.lat, venue.lng])
+    const marker = L.circleMarker([venue.lat, venue.lng], {
+      radius: 9,
+      fillColor: markerColor(venue.rating),
+      color: "#fffdf8",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.9,
+    })
       .addTo(map)
       .bindPopup(popupHtml(venue));
 
@@ -198,7 +317,7 @@ async function loadVenues() {
       throw new Error("VENUES data is missing");
     }
 
-    venues = window.VENUES;
+    venues = normalizeVenues(window.VENUES);
     addMarkers();
     renderList();
   } catch (error) {
