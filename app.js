@@ -111,6 +111,24 @@ function reviewBlockHtml(item, label) {
   `;
 }
 
+function infoBlockHtml(item, label) {
+  if (!item) {
+    return "";
+  }
+
+  const comment = item.comment
+    ? `<p class="detail-comment">${item.comment}</p>`
+    : "";
+
+  return `
+    <div class="detail-block">
+      <span class="detail-label">${label}</span>
+      <strong>${item.label}</strong>
+      ${comment}
+    </div>
+  `;
+}
+
 function markerColor(rating) {
   if (rating >= 4.5) {
     return "#1f7a4d";
@@ -150,6 +168,7 @@ function tableDetailsHtml(table) {
   const reviewBlocks = REVIEW_CATEGORIES.map(({ key, label }) =>
     reviewBlockHtml(table.review[key], label)
   ).join("");
+  const pocketsBlock = infoBlockHtml(table.pockets, "Pockets");
 
   return `
     <article class="table-card">
@@ -176,6 +195,12 @@ function tableDetailsHtml(table) {
         <span class="detail-label">Score Breakdown</span>
         <div class="details-grid">
           ${reviewBlocks}
+        </div>
+      </div>
+      <div class="review-section">
+        <span class="detail-label">Other Notes</span>
+        <div class="details-grid">
+          ${pocketsBlock}
         </div>
       </div>
     </article>

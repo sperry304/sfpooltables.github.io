@@ -21,7 +21,7 @@ window.VENUES = [
           table_condition: {
             score: 4,
             label: "Good",
-            comment: "Overall play is solid.",
+            comment: "Solid overall presentation with a reliable ball return.",
           },
           cloth_condition: {
             score: 4,
@@ -55,6 +55,10 @@ window.VENUES = [
             label: "Minor",
           },
         },
+        pockets: {
+          label: "Average",
+          comment: "Standard bar-box pockets with no major quirks.",
+        },
       },
     ],
     notes: "Sample entry. Replace this text with your own review notes.",
@@ -81,7 +85,7 @@ window.VENUES = [
           table_condition: {
             score: 3,
             label: "OK",
-            comment: "Playable, but the cloth is a little slow.",
+            comment: "Play is fine overall, but cosmetics are a little tired.",
           },
           cloth_condition: {
             score: 3,
@@ -112,6 +116,10 @@ window.VENUES = [
             score: 5,
             label: "None",
           },
+        },
+        pockets: {
+          label: "Tight",
+          comment: "A little less forgiving than most bar tables.",
         },
       },
       {
@@ -157,6 +165,9 @@ window.VENUES = [
             label: "None",
           },
         },
+        pockets: {
+          label: "Average",
+        },
       },
     ],
     notes:
@@ -183,11 +194,12 @@ window.VENUES = [
           table_condition: {
             score: 2,
             label: "Dirty",
-            comment: "Usable, but the cloth is worn and inconsistent.",
+            comment: "Rough overall look and inconsistent return behavior.",
           },
           cloth_condition: {
             score: 2,
             label: "Dirty",
+            comment: "Usable, but the cloth is worn and inconsistent.",
           },
           rails: {
             score: 2,
@@ -216,6 +228,10 @@ window.VENUES = [
             label: "Major",
             comment: "Noticeable drift on slower shots.",
           },
+        },
+        pockets: {
+          label: "Loose",
+          comment: "Forgiving pockets, but worn liners.",
         },
       },
     ],

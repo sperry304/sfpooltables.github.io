@@ -20,7 +20,7 @@ const VENUE_TEMPLATE = {
         table_condition: {
           score: 4,
           label: "Good",
-          comment: "Optional table condition comment.",
+          comment: "Optional overall table condition comment.",
         },
         cloth_condition: {
           score: 4,
@@ -57,6 +57,10 @@ const VENUE_TEMPLATE = {
           label: "None",
           comment: "Optional rolloff comment.",
         },
+      },
+      pockets: {
+        label: "Average",
+        comment: "Optional pocket note. Does not affect score.",
       },
     },
   ],
