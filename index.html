@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>SF Pool Tables</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <h1>SF Pool Tables</h1>
+        <p class="tagline">
+          Reviews of pool tables in San Francisco bars. Click a venue on the map
+          or in the list for details.
+        </p>
+        <p id="preview-warning" class="preview-warning" hidden></p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel map-panel">
+        <div class="panel-heading">
+          <h2>Map</h2>
+          <p>Zoom in, click markers, and compare locations geographically.</p>
+        </div>
+        <div id="map" aria-label="Map of San Francisco pool table venues"></div>
+      </section>
+
+      <aside class="panel list-panel">
+        <div class="panel-heading">
+          <h2>Venues</h2>
+          <label class="sort-control" for="sort-select">
+            Sort by
+            <select id="sort-select" name="sort-select">
+              <option value="rating">Highest rating</option>
+              <option value="name">Alphabetical</option>
+            </select>
+          </label>
+        </div>
+        <div id="venue-count" class="subtle"></div>
+        <ul id="venue-list" class="venue-list" aria-live="polite"></ul>
+      </aside>
+
+      <section class="panel details-panel">
+        <div class="panel-heading">
+          <h2>Venue Details</h2>
+          <p>Table specs, playability notes, and overall rating.</p>
+        </div>
+        <div id="details" class="details-empty">
+          Select a venue to inspect its pool table review.
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Starter site for GitHub Pages. Replace the sample data in
+        <code>data/bars.js</code> with real venue reviews.
+      </p>
+    </footer>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./data/bars.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
