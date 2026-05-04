@@ -50,6 +50,7 @@ function popupHtml(venue) {
     <p>${venue.address}</p>
     <p><strong>Rating:</strong> ${venue.rating.toFixed(1)}/5</p>
     <p><strong>Table:</strong> ${venue.table_size}, ${venue.make}</p>
+    <p><strong>Cloth:</strong> ${venue.cloth_color}</p>
   `;
 }
 
@@ -70,6 +71,10 @@ function detailsHtml(venue) {
         <div class="detail-block">
           <span class="detail-label">Make</span>
           <strong>${venue.make}</strong>
+        </div>
+        <div class="detail-block">
+          <span class="detail-label">Cloth Color</span>
+          <strong>${venue.cloth_color}</strong>
         </div>
         <div class="detail-block">
           <span class="detail-label">Cost</span>
@@ -196,11 +201,6 @@ async function loadVenues() {
     venues = window.VENUES;
     addMarkers();
     renderList();
-
-    if (venues.length > 0) {
-      const initialVenue = sortVenues(venues, sortSelect.value)[0];
-      selectVenue(initialVenue.id);
-    }
   } catch (error) {
     venueCount.textContent = "Could not load venue data.";
     details.className = "details-empty";
